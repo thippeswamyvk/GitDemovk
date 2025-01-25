@@ -42,7 +42,7 @@ public class AbstractComponent {
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.visibilityOf(findBy));
-
+		
 	}
 	
 	public CartPage goToCartPage()
