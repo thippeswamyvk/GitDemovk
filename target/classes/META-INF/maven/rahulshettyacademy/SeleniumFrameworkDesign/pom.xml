@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -56,12 +56,12 @@
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-<dependency>
-    <groupId>org.testng</groupId>
-    <artifactId>testng</artifactId>
-    <version>6.14.3</version>
-</dependency>
 
+<dependency>
+<groupId>org.testng</groupId>
+<artifactId>testng</artifactId>
+<version>7.10.2</version>
+</dependency>
 <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
@@ -69,111 +69,40 @@
     <version>2.13.3</version>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
 <dependency>
-    <groupId>io.github.bonigarcia</groupId>
-    <artifactId>webdrivermanager</artifactId>
-    <version>5.1.1</version>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>2.1.0-alpha1</version>
+    <scope>test</scope>
 </dependency>
+
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>2.1.0-alpha1</version>
+</dependency>
+
+
+
+
+
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.36</version>
+    <scope>provided</scope>
+</dependency>
+
 
 
   </dependencies>
   
-  <profiles>
-  <profile>
-  <id>Regression</id>
   
-  <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M6</version>
-        <configuration>
-          <suiteXmlFiles>
-            <suiteXmlFile>testSuites/testng.xml</suiteXmlFile>
-          </suiteXmlFiles>
-        </configuration>
-      </plugin>
-      </plugins>
-       </pluginManagement>
-         </build>
   
-  </profile>
   
-   <profile>
-  <id>Purchase</id>
-  
-   
-  <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M6</version>
-        <configuration>
-          <suiteXmlFiles>
-            <suiteXmlFile>testSuites/Purchase.xml</suiteXmlFile>
-          </suiteXmlFiles>
-        </configuration>
-      </plugin>
-      </plugins>
-       </pluginManagement>
-         </build>
-  
-  </profile>
-  
-    <profile>
-  <id>CucumberTests</id>
-  
-   
-  <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M6</version>
-        <configuration>
-          <includes>
-            <include>**/TestNGTestRunner.java</include>
-          </includes>
-        </configuration>
-      </plugin>
-      </plugins>
-       </pluginManagement>
-         </build>
-  
-  </profile>
-  
-  <profile>
-  <id>ErrorValidation</id>
-   
-  <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M6</version>
-        <configuration>
-          <suiteXmlFiles>
-            <suiteXmlFile>testSuites/ErrorValidationTests.xml</suiteXmlFile>
-          </suiteXmlFiles>
-        </configuration>
-      </plugin>
-      </plugins>
-       </pluginManagement>
-         </build>
-  
-  </profile>
-  
-  </profiles>
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -203,10 +132,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
         </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
+
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
@@ -231,4 +157,45 @@
       </plugins>
     </pluginManagement>
   </build>
+  
+      <profiles>
+        <!-- Regression Profile -->
+        <profile>
+            <id>Regression</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suiteFile>testSuites/testng.xml</suiteFile>
+            </properties>
+        </profile>
+
+ <!-- Purchase Profile -->
+        <profile>
+            <id>Purchase</id>
+            <properties>
+                <suiteFile>testSuites/Purchase.xml</suiteFile>
+            </properties>
+        </profile>
+
+
+      <!-- Cucumber Tests Profile -->
+        <profile>
+            <id>CucumberTests</id>
+            <properties>
+                <suiteFile>**/TestNGTestRunner.java</suiteFile>
+            </properties>
+        </profile>
+        
+        <!-- Error Validation Profile -->
+        <profile>
+            <id>ErrorValidation</id>
+            <properties>
+                <suiteFile>testSuites/ErrorValidationTests.xml</suiteFile>
+            </properties>
+        </profile>
+    </profiles>
+
+
+
 </project>
