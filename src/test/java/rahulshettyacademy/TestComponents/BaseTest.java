@@ -64,7 +64,7 @@ public class BaseTest {
 			// Firefox
 		} else if (browserName.equalsIgnoreCase("edge")) {
 			// Edge
-			System.setProperty("webdriver.edge.driver", "edge.exe");
+			//System.setProperty("webdriver.edge.driver", "edge.exe");
 			driver = new EdgeDriver();
 		}
 
